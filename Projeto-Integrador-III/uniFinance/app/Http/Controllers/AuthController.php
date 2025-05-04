@@ -2,34 +2,40 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
 {
-    public function login(Request $request)
+    // Método para exibir o formulário de login
+    public function showLoginForm()
     {
-
-        $validated = $request->validate([
-            'email' => 'required|email',
-            'password' => 'required|string',
-        ]);
-
-        // Procura o usuário pelo email
-        $user = User::where('email', trim($request->email))->first();
-
-        // Verifica se o usuário existe e se a senha está correta
-        if ($user && Hash::check($request->password, $user->password)) {
-            // Senha correta, retorna sucesso
-            return response()->json([
-                'message' => 'Authenticated successfully',
-                'user' => $user,
-            ]);
-        }
-
-        // Se falhar na autenticação
-        return response()->json(['message' => 'Invalid credentials'], 401);
+        return view('login');
     }
 
+    // Método para processar o login
+    public function login(Request $request)
+    {
+        // Validação do formulário de login
+        $request->validate([
+            'email' => 'required|email',
+            'password' => 'required|min:5',
+        ]);
+
+        // Tentativa de login com as credenciais fornecidas
+        if (Auth::attempt($request->only('email', 'password'))) {
+            // Login bem-sucedido, redireciona para a página menu
+            return redirect()->route('menu');
+        }
+
+        // Se as credenciais estiverem incorretas, redireciona de volta com mensagem de erro
+        return redirect()->route('login')->withErrors(['email' => 'Credenciais inválidas']);
+    }
+
+    // Método para fazer o logout
+    public function logout()
+    {
+        Auth::logout();
+        return redirect()->route('login');
+    }
 }
