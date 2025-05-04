@@ -32,10 +32,15 @@ class AuthController extends Controller
         return redirect()->route('login')->withErrors(['email' => 'Credenciais inválidas']);
     }
 
-    // Método para fazer o logout
-    public function logout()
+    public function logout(Request $request)
     {
-        Auth::logout();
+        // Remover o token de autenticação do usuário
+        Auth::user()->tokens->each(function ($token) {
+            $token->delete();
+        });
+
+        // Redireciona para a página de login após o logout
         return redirect()->route('login');
     }
+    
 }

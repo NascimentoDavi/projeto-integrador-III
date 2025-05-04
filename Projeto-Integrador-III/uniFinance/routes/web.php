@@ -13,3 +13,6 @@ Route::post('/login', [AuthController::class, 'login']);
 Route::middleware('auth:sanctum')->get('/menu', function() {
     return view('menu');
 })->name('menu');
+
+// LOGOUT
+Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
