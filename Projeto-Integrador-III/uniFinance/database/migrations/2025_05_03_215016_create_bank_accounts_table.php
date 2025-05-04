@@ -34,7 +34,6 @@ return new class extends Migration
             // Se usuario for deletado, contas tambem são deletadas
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
 
-
             // Cria colunas created_at e updated_at
             $table->timestamps();
         });
