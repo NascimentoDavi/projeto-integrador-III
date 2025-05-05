@@ -3,6 +3,9 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 
+// Root
+Route::get('/', [AuthController::class, 'showLoginForm'])->name('login');
+
 // Show Login Route
 Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
 
@@ -15,4 +18,4 @@ Route::middleware('auth:sanctum')->get('/menu', function() {
 })->name('menu');
 
 // LOGOUT
-Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+Route::match(['get', 'post'], '/logout', [AuthController::class, 'logout'])->name('logout');
