@@ -28,8 +28,8 @@ return new class extends Migration
             $table->enum('account_type', BankAccountType::values());
 
             // Saldo Inicial e Atual (15 : Quantidade total de digitos | 2 : Quantidade total de casas decimais)
-            $table->decimal('initial_balance', 15, 2)->setDefault(0);
-            $table->decimal('current_balance', 15, 2)->setDefault(0);
+            $table->decimal('initial_balance', 15, 2)->Default(0);
+            $table->decimal('current_balance', 15, 2)->Default(0);
 
             // Se usuario for deletado, contas tambem são deletadas
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
