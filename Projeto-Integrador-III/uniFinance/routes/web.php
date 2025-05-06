@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\UserController;
 
 // Show Login Route
 Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
@@ -16,3 +17,9 @@ Route::middleware('auth:sanctum')->get('/menu', function() {
 
 // LOGOUT
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+
+// Criação de usuário
+Route::post('/user', [UserController::class, 'createUser'])->name('users.store');
+
+// Form de criação de usuário
+Route::get('/user/create', [UserController::class, 'createUserForm'])->name('user.form');
