@@ -44,7 +44,7 @@ class UserController extends Controller
         // Criação de usuário com o ServiceLayer
         $user = $this->userService->createUser($data);
 
-        return response()->json(['message' => 'User created successfully', 'user' => $user], 201);
+            return redirect()->route('login-get')->with('success', 'User created successfully');
     }
 
     public function updateUser(Request $request, $id)
@@ -84,6 +84,6 @@ class UserController extends Controller
 
     public function createUserForm()
     {
-        return view('register');
+        return view('signup');
     }
 }

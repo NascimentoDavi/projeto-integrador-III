@@ -29,7 +29,7 @@ class AuthController extends Controller
         }
 
         // Se as credenciais estiverem incorretas, redireciona de volta com mensagem de erro
-        return redirect()->route('login')->withErrors(['email' => 'Credenciais inválidas']);
+        return redirect()->route('login-get')->withErrors(['email' => 'Credenciais inválidas']);
     }
 
     public function logout(Request $request)
@@ -47,6 +47,6 @@ class AuthController extends Controller
         $request->session()->regenerateToken();
 
         // Redireciona para a página de login após o logout
-        return redirect()->route('login');
+        return redirect()->route('login-get');
     }
 }

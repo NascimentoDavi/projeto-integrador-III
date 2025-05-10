@@ -26,15 +26,11 @@
 
 </head>
 
-<body class="container">
+<body class="">
 
-    @include('layouts.navbar')
-
-    <div class="container-fluid my-lg-4 my-md-3 my-3">
+    <div class="">
         @yield('content')
     </div>
-
-    @include('layouts.footer')
 
 </body>
 

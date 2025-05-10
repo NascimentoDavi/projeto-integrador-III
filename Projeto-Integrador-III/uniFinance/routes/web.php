@@ -5,10 +5,10 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UserController;
 
 // Show Login Route
-Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
+Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login-get');
 
 // Login By POST
-Route::post('/login', [AuthController::class, 'login']);
+Route::post('/login', [AuthController::class, 'login'])->name('login-post');
 
 // Rota protegida pela autenticação
 Route::middleware('auth:sanctum')->get('/menu', function() {
@@ -19,7 +19,7 @@ Route::middleware('auth:sanctum')->get('/menu', function() {
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 // Criação de usuário
-Route::post('/user', [UserController::class, 'createUser'])->name('users.store');
+Route::post('/user', [UserController::class, 'createUser'])->name('users-store');
 
 // Form de criação de usuário
-Route::get('/user/create', [UserController::class, 'createUserForm'])->name('user.form');
+Route::get('/user/create', [UserController::class, 'createUserForm'])->name('user-form');
