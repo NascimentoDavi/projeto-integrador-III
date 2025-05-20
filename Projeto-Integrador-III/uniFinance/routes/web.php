@@ -3,23 +3,30 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\DashboardController;
 
-// Show Login Route
-Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login-get');
+// ROTAS PÚBLICAS (apenas login)
+Route::get('/', [AuthController::class, 'showLoginForm'])->name('login');
+Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login'); // <- nome deve ser exatamente 'login'
+Route::post('/login', [AuthController::class, 'login'])->name('login');
 
-// Login By POST
-Route::post('/login', [AuthController::class, 'login'])->name('login-post');
+// TODAS AS OUTRAS ROTAS PROTEGIDAS
+Route::middleware('auth')->group(function () {
 
-// Rota protegida pela autenticação
-Route::middleware('auth:sanctum')->get('/menu', function() {
-    return view('menu');
-})->name('menu');
+    // Página principal após login
+    Route::get('/menu', function () {
+        return view('menu');
+    })->name('menu');
 
-// LOGOUT
-Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+    // Dashboard
+    Route::match(['get', 'post'], '/dashboard', [DashboardController::class, 'showDashboard'])->name('dashboard');
 
-// Criação de usuário
-Route::post('/user', [UserController::class, 'createUser'])->name('users-store');
+    // Logout
+    Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+});
 
-// Form de criação de usuário
-Route::get('/user/create', [UserController::class, 'createUserForm'])->name('user-form');
+// Criação de usuário (apenas para usuários logados)
+Route::post('/users/create', [UserController::class, 'createUser'])->name('users-create');
+
+// Criação de usuário (apenas usuários logados podem criar outros)
+Route::get('/users/create', [UserController::class, 'createUserForm'])->name('user-create');

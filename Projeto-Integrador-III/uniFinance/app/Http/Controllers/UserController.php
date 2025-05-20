@@ -9,9 +9,6 @@ use Illuminate\Support\Facades\Validator;
 
 class UserController extends Controller
 {
-
-
-
     // Dependencie Injection
     protected $userService;
     public function __construct(UserService $userService)
@@ -19,8 +16,7 @@ class UserController extends Controller
         $this->userService = $userService;
     }
 
-
-
+    // FUNÇÃO DE CRIAÇÃO DE USUÁRIO
     public function createUser(Request $request)
     {
         $validator = Validator::make($request->all(), [
@@ -44,7 +40,7 @@ class UserController extends Controller
         // Criação de usuário com o ServiceLayer
         $user = $this->userService->createUser($data);
 
-            return redirect()->route('login-get')->with('success', 'User created successfully');
+        return redirect()->route('login')->with('success', 'User created successfully');
     }
 
     public function updateUser(Request $request, $id)

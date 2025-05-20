@@ -55,7 +55,7 @@
     </div>
 
     <h2 class="text-center mb-4">Login</h2>
-    <form action="{{ route('login-post') }}" method="POST">
+    <form action="{{ route('login') }}" method="POST">
         @csrf
 
         {{-- EMAIL --}}
@@ -94,7 +94,7 @@
         <div class="mt-3 text-center">
             <a href="#">Esqueceu a senha?</a>
             <div class="mt-3 text-center">
-                <a class="bnt btn-link" href={{ route('user-form') }}>sign-up</a>
+                <a class="bnt btn-link" href={{ route('user-create') }}>sign-up</a>
             </div>
         </div>
     </form>

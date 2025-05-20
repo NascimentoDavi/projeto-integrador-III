@@ -12,10 +12,10 @@
   <!-- Bootstrap CSS -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js" integrity="sha384-j1CDi7MgGQ12Z7Qab0qlWQ/Qqz24Gc6BM0thvEMVjHnfYGF0rmFCozFSxQBxwHKO" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
 
-    {{-- Custom CSS Sets --}}
-    @vite('resources/css/app.css')
+  {{-- Custom CSS Sets --}}
+  @vite('resources/css/app.css')
 
   <style>
     :root {
@@ -23,10 +23,12 @@
       --cor-botoes: #dea844;
       --cor-hover: #be8f37;
     }
+
     body {
       background-color: var(--cor-fundo);
       background: linear-gradient(135deg, #042340, #0d3c61);
     }
+
     .form-container {
       max-width: 600px;
       margin: 80px auto;
@@ -35,11 +37,13 @@
       border-radius: 0.5rem;
       box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     }
+
     .btn-primary {
       background-color: var(--cor-botoes) !important;
       border-color: #000 !important;
       color: #000 !important;
     }
+
     .btn-primary:hover {
       background-color: var(--cor-hover) !important;
       border-color: #000 !important;
@@ -52,8 +56,9 @@
   <div class="form-container">
 
     <div class="d-flex align-items-center justify-content-align mb-4">
-        <img src="{{ asset('img/unifinanceLogo.jpg') }}" alt="Logo da Empresa" class="img-fluid rounded-circle" style="max-height: 40px; margin-right: 5px;">
-        <h1 class="h5 mb-0"> Unifinance</h1>
+      <img src="{{ asset('img/unifinanceLogo.jpg') }}" alt="Logo da Empresa" class="img-fluid rounded-circle"
+        style="max-height: 40px; margin-right: 5px;">
+      <h1 class="h5 mb-0"> Unifinance</h1>
     </div>
 
     <h2 class="text-center mb-4">Criar Novo Usuário</h2>
@@ -70,7 +75,7 @@
       </div>
     @endif
 
-    <form action="{{ route('users-store') }}" method="POST" enctype="multipart/form-data">
+    <form action="{{ route('users-create') }}" method="POST" enctype="multipart/form-data">
       @csrf
 
       {{-- NOME COMPLETO --}}
@@ -90,22 +95,24 @@
         <label for="password" class="form-label">Senha</label>
         <div class="input-group">
           <input type="password" class="form-control" id="password" name="password" required>
-          <button type="button" class="btn btn-outline-secondary" id="togglePassword">
+          <button type="button" class="btn btn-outline-secondary" id="togglePassword" tabindex="-1">
             <i class="bi bi-eye"></i>
           </button>
         </div>
       </div>
 
-      {{-- CONFIRMACAO DE SENHA --}}
+      {{-- CONFIRMAÇÃO DE SENHA --}}
       <div class="mb-3">
-        <label for="confirmPassword" class="form-label">Confirme a Senha</label>
+        <label for="password_confirmation" class="form-label">Confirme a Senha</label>
         <div class="input-group">
-          <input type="password" class="form-control" id="confirmPassword" name="password_confirmation" required>
-          <button type="button" class="btn btn-outline-secondary" id="toggleConfirmPassword">
+          <input type="password" class="form-control" id="password_confirmation" name="password_confirmation" required>
+          <button type="button" class="btn btn-outline-secondary" id="toggleConfirmPassword" tabindex="-1">
             <i class="bi bi-eye"></i>
           </button>
         </div>
       </div>
+
+      <small id="invalid_password_msg" style="color: red;"></small>
 
       {{-- FOTO DE PERFIL --}}
       <div class="mb-3">
@@ -113,9 +120,9 @@
         <input type="file" name="profile_photo" class="form-control">
       </div>
 
-      {{-- CRIAR USUARIO --}}
+      {{-- CRIAR USUÁRIO --}}
       <div class="d-grid">
-        <button type="submit" class="btn btn-primary">Criar Usuário</button>
+        <button type="submit" class="btn btn-primary" id="submitBtn">Criar Usuário</button>
       </div>
 
     </form>
@@ -131,13 +138,37 @@
       button.addEventListener('click', () => {
         const isPassword = input.type === 'password';
         input.type = isPassword ? 'text' : 'password';
+
+        // Alterna entre os ícones de olho aberto e olho fechado
         icon.classList.toggle('bi-eye');
+        icon.classList.toggle('bi-eye-slash');
       });
     }
 
+    // Inicializa os dois toggles
     togglePassword('password', 'togglePassword');
-    togglePassword('confirmPassword', 'toggleConfirmPassword');
+    togglePassword('password_confirmation', 'toggleConfirmPassword');
+
+    const password = document.getElementById('password');
+    const password_confirmation = document.getElementById('password_confirmation');
+    const invalid_password_msg = document.getElementById('invalid_password_msg');
+    const submitBtn = document.getElementById('submitBtn');
+
+    function checkPasswords() {
+      if (password_confirmation.value !== password.value) {
+        invalid_password_msg.textContent = 'As credenciais não estão iguais';
+        submitBtn.disabled = true;
+      } else {
+        invalid_password_msg.textContent = '';
+        submitBtn.disabled = false;
+      }
+    }
+
+    // Valida a cada input digitado
+    password_confirmation.addEventListener('input', checkPasswords);
+    password.addEventListener('input', checkPasswords);
   </script>
 
 </body>
+
 </html>

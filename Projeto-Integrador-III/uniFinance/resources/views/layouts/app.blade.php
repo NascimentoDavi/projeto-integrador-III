@@ -28,7 +28,9 @@
 
 <body class="">
 
-    <div class="">
+    @include('layouts.sidebar')
+
+    <div class="container">
         @yield('content')
     </div>
 

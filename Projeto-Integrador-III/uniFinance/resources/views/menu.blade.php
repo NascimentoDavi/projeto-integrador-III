@@ -11,14 +11,6 @@
     </button>
   </div>
 
-  <!-- Sidebar -->
-  <div id="sidebar" class="sidebar">
-    <a href="#" class="nav-link"><i class="bi bi-house"></i><span>Início</span></a>
-    <a href="#" class="nav-link"><i class="bi bi-info-circle"></i><span>Sobre</span></a>
-    <a href="#" class="nav-link"><i class="bi bi-gear"></i><span>Serviços</span></a>
-    <a href="#" class="nav-link"><i class="bi bi-envelope"></i><span>Contato</span></a>
-  </div>
-
   <!-- Conteúdo principal -->
   <div id="content" class="content">
     <h1>Bem-vindo</h1>
