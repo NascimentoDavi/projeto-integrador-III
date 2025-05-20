@@ -23,6 +23,8 @@ Route::middleware('auth')->group(function () {
 
     // Logout
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+
+    Route::get('/menu/accounts', [UserController::class, 'showBankAccounts'])->name('accounts');
 });
 
 // Criação de usuário (apenas para usuários logados)

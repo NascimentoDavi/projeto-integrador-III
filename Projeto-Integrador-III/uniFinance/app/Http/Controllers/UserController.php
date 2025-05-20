@@ -16,7 +16,7 @@ class UserController extends Controller
         $this->userService = $userService;
     }
 
-    // FUNÇÃO DE CRIAÇÃO DE USUÁRIO
+    // CRIAÇÃO DE USUÁRIO
     public function createUser(Request $request)
     {
         $validator = Validator::make($request->all(), [
@@ -43,6 +43,7 @@ class UserController extends Controller
         return redirect()->route('login')->with('success', 'User created successfully');
     }
 
+    // ATUALIZAÇÃO DE USUÁRIO
     public function updateUser(Request $request, $id)
     {
         $validator = Validator::make($request->all(), [
@@ -70,6 +71,7 @@ class UserController extends Controller
         return response()->json(['message' => 'User updated successfully', 'user' => $updatedUser]);
     }
 
+    // DELETAR USUÁRIO
     public function deleteUser($id)
     {
         $user = User::findOrFail($id);
@@ -81,5 +83,10 @@ class UserController extends Controller
     public function createUserForm()
     {
         return view('signup');
+    }
+
+    public function showBankAccounts(Request $request)
+    {
+        return view('bankaccounts');
     }
 }
