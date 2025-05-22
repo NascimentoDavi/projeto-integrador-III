@@ -6,7 +6,7 @@
 
 
     <div class="content" id="content">
-        <p>Dashboard page</p>
+        <p>{{auth()->user()}}</p>
     </div>
 
 

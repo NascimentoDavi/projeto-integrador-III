@@ -14,6 +14,7 @@ Route::post('/login', [AuthController::class, 'login'])->name('login');
 Route::middleware('auth')->group(function () {
 
     // Página principal após login
+    // Adicionar controller de menu
     Route::get('/menu', function () {
         return view('menu');
     })->name('menu');
@@ -26,7 +27,7 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/menu/accounts', [UserController::class, 'showBankAccounts'])->name('accounts');
 });
-
+    
 // Criação de usuário (apenas para usuários logados)
 Route::post('/users/create', [UserController::class, 'createUser'])->name('users-create');
 

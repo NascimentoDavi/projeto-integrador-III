@@ -87,6 +87,14 @@ class UserController extends Controller
 
     public function showBankAccounts(Request $request)
     {
+
+        // Verificar se o usuário possui conta bancára cadastrada
+        
+        // Caso positivo, mostrá-las
+        // Caso negativo, Mostrar apenas que não possui e botão para cadastro
+
+
+
         return view('bankaccounts');
     }
 }

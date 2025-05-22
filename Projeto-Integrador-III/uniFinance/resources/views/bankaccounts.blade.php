@@ -11,7 +11,13 @@
             @csrf
 
             <div class="mb-3">
-                <label for="bank_name" class="form-label">Nome do Banco</label>
+                <label for="bank_name" class="form-label">Apelido da Conta</label>
+                <input type="text" class="form-control" id="bank_name" name="bank_name" required>
+            </div>
+
+
+            <div class="mb-3">
+                <label for="bank_name" class="form-label">Instituição Bancária</label>
                 <input type="text" class="form-control" id="bank_name" name="bank_name" required>
             </div>
 
