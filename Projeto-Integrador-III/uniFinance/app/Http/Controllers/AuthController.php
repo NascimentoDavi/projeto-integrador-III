@@ -34,19 +34,12 @@ class AuthController extends Controller
 
     public function logout(Request $request)
     {
-        // Remover o token de autenticação do usuário
-        Auth::user()->tokens->each(function ($token) {
-            $token->delete();
-        });
-
-        // Deslogar o usuário
         Auth::logout();
-
-        // Invalidar e regenerar a sessão
+    
         $request->session()->invalidate();
         $request->session()->regenerateToken();
-
-        // Redireciona para a página de login após o logout
-        return redirect()->route('login-get');
+    
+        return redirect()->route('login');
     }
+    
 }

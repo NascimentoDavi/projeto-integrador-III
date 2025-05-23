@@ -23,7 +23,7 @@ Route::middleware('auth')->group(function () {
     Route::match(['get', 'post'], '/dashboard', [DashboardController::class, 'showDashboard'])->name('dashboard');
 
     // Logout
-    Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+    Route::post( '/logout', [AuthController::class, 'logout'])->name('logout');
 
     Route::get('/menu/accounts', [UserController::class, 'showBankAccounts'])->name('accounts');
 });

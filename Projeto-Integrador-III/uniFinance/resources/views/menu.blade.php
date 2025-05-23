@@ -13,8 +13,8 @@
 
   <!-- Conteúdo principal -->
   <div id="content" class="content">
-    <h1>Bem-vindo</h1>
-    <p>Use o botão de menu no mobile para abrir a barra lateral.</p>
+    <h1>Bem-vindo {{ auth()->user()['completeName'] }} </h1>
+    <p>Grandes coisas estão por vir, aguarde por novidades</p>
   </div>
 
 
