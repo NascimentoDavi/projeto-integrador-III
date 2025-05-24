@@ -54,27 +54,14 @@
         <h1 class="h5 mb-0">Unifinance</h1>
     </div>
 
-    <h2 class="text-center mb-4">Login</h2>
-    <form action="{{ route('login') }}" method="POST">
+    <h2 class="text-center mb-4">E-mail</h2>
+    <form action="{{ route('password-email') }}" method="POST">
         @csrf
 
         {{-- EMAIL --}}
         <div class="mb-3">
-            <label for="email" class="form-label" id="email">E-mail</label>
-            <input type="email" class="form-control" placeholder="Digite seu e-mail" name="email"required>
-        </div>
-
-        {{-- SENHA --}}
-        <div class="mb-3">
-                <label for="senha" class="form-label">Senha</label>
-                <div class="input-group">
-
-                <input type="password" class="form-control" placeholder="Digite sua senha" name="password" id="password" required>
-
-                <button class="btn btn-outline-secondary" type="button" id="toggleSenha">
-                    <i class="bi bi-eye"></i>
-                </button>
-            </div>
+            <label for="email" class="form-label" id="email">Email</label>
+            <input type="email" class="form-control" placeholder="Your email" name="password"required>
         </div>
 
         {{-- Mensagem de erro --}}
@@ -89,13 +76,7 @@
         </div>
 
         <div class="d-grid">
-            <button type="submit" class="btn btn-primary">Entrar</button>
-        </div>
-        <div class="mt-3 text-center">
-            <a href="{{ route('forgot-password') }}">Esqueceu a senha?</a>
-            <div class="mt-3 text-center">
-                <a class="bnt btn-link" href={{ route('user-create') }}>sign-up</a>
-            </div>
+            <button type="submit" class="btn btn-primary">Send link</button>
         </div>
     </form>
     </div>

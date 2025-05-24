@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use DB;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Session;
 
 class AuthController extends Controller
 {
@@ -23,7 +25,8 @@ class AuthController extends Controller
         ]);
 
         // Tentativa de login com as credenciais fornecidas
-        if (Auth::attempt($request->only('email', 'password'))) {
+        if (Auth::attempt(
+            $request->only('email', 'password'))) {
             // Login bem-sucedido, redireciona para a página menu
             return redirect()->route('menu');
         }
@@ -34,19 +37,9 @@ class AuthController extends Controller
 
     public function logout(Request $request)
     {
-        // Remover o token de autenticação do usuário
-        Auth::user()->tokens->each(function ($token) {
-            $token->delete();
-        });
-
-        // Deslogar o usuário
-        Auth::logout();
-
-        // Invalidar e regenerar a sessão
-        $request->session()->invalidate();
-        $request->session()->regenerateToken();
+        DB::table('sessions')->where('id', Session::getI())->delete();
 
         // Redireciona para a página de login após o logout
-        return redirect()->route('login-get');
+        return redirect()->route('login');
     }
 }

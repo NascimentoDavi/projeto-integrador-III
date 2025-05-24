@@ -19,17 +19,35 @@ Route::middleware('auth')->group(function () {
         return view('menu');
     })->name('menu');
 
-    // Dashboard
-    Route::match(['get', 'post'], '/dashboard', [DashboardController::class, 'showDashboard'])->name('dashboard');
-
     // Logout
-    Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+    Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 
     Route::get('/menu/accounts', [UserController::class, 'showBankAccounts'])->name('accounts');
+
+    // Dashboard
+    Route::match(['get', 'post'], '/dashboard', [DashboardController::class, 'showDashboard'])->name('dashboard');
 });
-    
+
 // Criação de usuário (apenas para usuários logados)
 Route::post('/users/create', [UserController::class, 'createUser'])->name('users-create');
 
 // Criação de usuário (apenas usuários logados podem criar outros)
 Route::get('/users/create', [UserController::class, 'createUserForm'])->name('user-create');
+
+Route::get('forgot-password', function() {
+    return view('auth.forgot-password');
+})->name('forgot-password');
+
+Route::post('/forgot-password', function(Request $request) {
+    $request->validate([
+        'email'=> 'required|email'
+    ]);
+
+    $status = Password::sendResetLink(
+        $request->only('email')
+    );
+
+    return $status === Password::ResetLinkSent
+    ? back()->with(['status' => __($status)])
+    : back()->withErrors(['email' => __($status)]);
+})->name('password-email');
