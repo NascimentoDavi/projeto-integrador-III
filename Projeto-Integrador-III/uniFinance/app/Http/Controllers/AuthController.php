@@ -12,8 +12,14 @@ class AuthController extends Controller
     // Método para exibir o formulário de login
     public function showLoginForm()
     {
+        // Verificação se usuário está com Session ativa e loga direto
+        if(Auth::check()){
+            return redirect()->route('menu');
+        }
+        
         return view('login');
     }
+
 
     // Método para processar o login
     public function login(Request $request)

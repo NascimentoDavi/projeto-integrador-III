@@ -122,8 +122,10 @@
 
       {{-- CRIAR USUÁRIO --}}
       <div class="d-grid">
-        <button type="submit" class="btn btn-primary" id="submitBtn">Criar Usuário</button>
+        <button type="submit" class="btn btn-primary" id="submitBtn">Sign Up</button>
       </div>
+
+      <div class="d-grid"><a href=""></a></div>
 
     </form>
   </div>

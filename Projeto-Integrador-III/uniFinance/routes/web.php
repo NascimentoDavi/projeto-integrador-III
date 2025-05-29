@@ -12,9 +12,6 @@ Route::post('/login', [AuthController::class, 'login'])->name('login');
 
 // TODAS AS OUTRAS ROTAS PROTEGIDAS
 Route::middleware('auth')->group(function () {
-
-    // Página principal após login
-    // Adicionar controller de menu
     Route::get('/menu', function () {
         return view('menu');
     })->name('menu');
